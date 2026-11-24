@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#101315">
+  <meta name="description" content="从 Antigravity Marketplace 打开 Kling AI 插件，在 Antigravity 中生成图片和视频。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Kling AI for Google Antigravity">
+  <meta property="og:description" content="在 Antigravity 中生成图片和视频。打开 Marketplace 查看 Kling AI 插件。">
+  <meta property="og:url" content="https://wlain.github.io/kling-ai-antigravity/">
+  <link rel="canonical" href="https://wlain.github.io/kling-ai-antigravity/">
+  <link rel="icon" type="image/png" href="./kling-logo.png">
+  <title>Kling AI for Google Antigravity</title>
+  <style>
+    :root {
+      font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      color: #f4f7f4;
+      background: #101315;
+      --muted: #b1bbb6;
+      --green: #c4ff72;
+      --line: #343e3b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body { margin: 0; }
+
+    .page {
+      width: min(100% - 3rem, 68rem);
+      min-height: 100svh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      margin-inline: auto;
+    }
+
+    header, footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--muted);
+      font-size: .875rem;
+    }
+
+    header { padding-block: 1.75rem; }
+
+    .brand {
+      color: #f4f7f4;
+      font-size: 1rem;
+      font-weight: 750;
+      text-decoration: none;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.22fr) minmax(0, 1fr);
+      align-items: center;
+      margin-block: clamp(2rem, 7vh, 5.5rem);
+      border: 1px solid var(--line);
+      border-radius: 1.25rem;
+      overflow: hidden;
+      background: #161c1b;
+    }
+
+    .intro { padding: clamp(2rem, 5.5vw, 4.5rem); }
+
+    .marketplace {
+      margin: 0 0 1.25rem;
+      color: var(--green);
+      font-size: .875rem;
+      font-weight: 650;
+    }
+
+    h1 {
+      display: grid;
+      gap: .25rem;
+      margin: 0;
+      font-size: clamp(3.25rem, 7vw, 6rem);
+      font-weight: 760;
+      line-height: .97;
+      letter-spacing: -.07em;
+    }
+
+    h1 span {
+      color: #d6dfd8;
+      font-size: clamp(1.4rem, 3.1vw, 2.375rem);
+      font-weight: 550;
+      line-height: 1.2;
+      letter-spacing: -.04em;
+    }
+
+    .description, .help {
+      color: var(--muted);
+      line-height: 1.7;
+      text-wrap: pretty;
+    }
+
+    .description { margin: 1.5rem 0 1.75rem; }
+
+    .open {
+      display: inline-flex;
+      align-items: center;
+      min-height: 3.25rem;
+      padding: .65rem 1.2rem;
+      border-radius: .55rem;
+      background: var(--green);
+      color: #17220e;
+      font-weight: 750;
+      text-decoration: none;
+    }
+
+    .open:hover { background: #d7ffab; }
+    a:focus-visible { outline: 2px solid #e5fdda; outline-offset: 5px; }
+
+    .help { margin: 1rem 0 0; font-size: .875rem; }
+    .help a, footer a { color: #e7efe8; text-underline-offset: .22em; }
+    .help a:hover, footer a:hover { color: var(--green); }
+
+    .art {
+      position: relative;
+      isolation: isolate;
+      display: grid;
+      min-height: 100%;
+      place-items: center;
+      overflow: hidden;
+      border-left: 1px solid var(--line);
+      background:
+        radial-gradient(ellipse at 54% 53%, #3a5531 0, transparent 66%),
+        linear-gradient(145deg, #222e2b, #111817 72%);
+    }
+
+    .art::before, .art::after {
+      position: absolute;
+      z-index: -1;
+      width: 154%;
+      height: 44%;
+      border: 1px solid #aaff9b55;
+      border-radius: 50%;
+      content: "";
+      transform: rotate(-29deg);
+    }
+
+    .art::after {
+      width: 115%;
+      height: 60%;
+      border-color: #aaff9b29;
+      transform: rotate(-38deg);
+    }
+
+    .logo {
+      display: grid;
+      width: clamp(8rem, 17vw, 13rem);
+      aspect-ratio: 1;
+      place-items: center;
+      border: 1px solid #657e60;
+      border-radius: 27%;
+      background: #0d1512;
+      box-shadow: 0 1.5rem 4rem #090e0c9c, 0 0 3rem #bdff8626;
+    }
+
+    .logo img { display: block; width: 64%; height: auto; }
+
+    footer {
+      align-self: end;
+      border-top: 1px solid var(--line);
+      padding-block: 1.25rem 1.5rem;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 45rem) {
+      .hero { grid-template-columns: 1fr; margin-block: 1.25rem 2rem; }
+      .art { grid-row: 1; min-height: 12rem; border-left: 0; border-bottom: 1px solid var(--line); }
+      .art::before, .art::after { max-width: 34rem; }
+    }
+
+    @media (max-width: 26rem) {
+      .page { width: calc(100% - 1.5rem); }
+      .intro { padding: 1.5rem; }
+      footer { align-items: flex-start; flex-direction: column; gap: .55rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <a class="brand" href="https://kling.ai/">Kling AI</a>
+      <span>Google Antigravity</span>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="title">
+        <div class="intro">
+          <p class="marketplace">Antigravity Marketplace</p>
+          <h1 id="title">Kling AI <span>for Google Antigravity</span></h1>
+          <p class="description">在 Antigravity 中直接使用 Kling AI 生成图片和视频。</p>
+          <a class="open" href="antigravity://customizations/marketplaces/antigravity-plugins-partners/plugins/kling-ai" aria-describedby="open-help">在 Antigravity 中打开</a>
+          <p class="help" id="open-help">如浏览器提示打开 Antigravity，请选择「打开」。<br>尚未安装？<a href="https://antigravity.google/download">下载 Antigravity</a>。</p>
+        </div>
+        <div class="art" aria-hidden="true">
+          <div class="logo"><img src="./kling-logo.png" alt=""></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>也可在应用内进入 Customizations → Marketplace，搜索 Kling AI。</span>
+      <a href="https://github.com/klingai-dev/antigravity-plugin">在 GitHub 查看插件</a>
+    </footer>
+  </div>
+</body>
+</html>
